@@ -1,0 +1,14 @@
+.PlayListTitle {
+  background: rgba(255,255,255,0.35);
+  font-family: 'Work Sans', Arial, sans-serif;
+  margin: .25rem;
+  padding: 0.5rem;
+}
+
+h2, p {
+  margin: 0;
+}
+
+p {
+  font-size: 0.90em;
+}

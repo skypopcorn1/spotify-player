@@ -3,6 +3,7 @@ import React from 'react';
 import './App.css';
 import SearchBar from '../SearchBar/SearchBar.js';
 import SearchResults from '../SearchResults/SearchResults.js';
+import UserPlaylists from '../UserPlaylists/UserPlaylists.js';
 import Spotify from '../../util/Spotify.js';
 import Playlist from '../Playlist/Playlist.js';
 
@@ -11,6 +12,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.addTrack = this.addTrack.bind(this);
+    // this.getPlaylists = this.getPlaylists.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
     this.search = this.search.bind(this);
@@ -19,6 +21,7 @@ class App extends React.Component {
       playlistName: 'New Playlist',
       playlistTracks: [],
       searchResults: [],
+      userPlaylists: [],
     }
   }
 
@@ -65,6 +68,13 @@ class App extends React.Component {
     }
   }
 
+  async getPlaylists() {
+    const userPlaylists = await Spotify.getPlaylists();
+    this.setState({
+      userPlaylists: userPlaylists,
+    });
+  }
+
   updatePlaylistName(name){
     this.setState({
       playlistName: name,
@@ -86,15 +96,22 @@ class App extends React.Component {
     }
   }
 
-  render(){
+  componentDidMount() {
     Spotify.getAccessToken();
+    this.getPlaylists();
+  }
+  componentDidUpdate(){
 
+  }
+
+  render(){
     return (
       <div>
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
           <SearchBar onSearch={this.search} />
           <div className="App-playlist">
+            <UserPlaylists playlists={this.state.userPlaylists}/>
             <SearchResults
               onAdd={this.addTrack}
               results={this.state.searchResults}

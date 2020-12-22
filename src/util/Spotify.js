@@ -49,6 +49,22 @@ const Spotify = {
     return searchResults;
   },
 
+  async getPlaylists() {
+    const accessToken = userAccessToken;
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json'
+    }
+    const userPlaylists = await fetch('https://api.spotify.com/v1/me/playlists', {
+      headers: headers,
+    }).then(response => response.json())
+    .then(data => {
+      console.log(data);
+      return data.items;
+    });
+    return userPlaylists;
+  },
+
   async savePlaylist(playListName, trackUris){
     if (playListName && trackUris) {
       const accessToken = userAccessToken;
@@ -83,7 +99,7 @@ const Spotify = {
     } else {
       return null;
     }
-  }
+  },
 
 }
 
