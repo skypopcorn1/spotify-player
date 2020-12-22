@@ -1,5 +1,5 @@
 const CLIENT_ID = 'b7eaa69122c44503bbb23c2592a9d5ed';
-const REDIRECT_URI = "https://skypopcorn1.github.io/spotify-player/";
+const REDIRECT_URI = "https://spotifyme.netlify.app/";
 let userAccessToken;
 const Spotify = {
   getAccessToken(){
